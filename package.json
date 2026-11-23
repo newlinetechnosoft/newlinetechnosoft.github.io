@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "predev": "bun scripts/generate-og.ts && bun scripts/generate-sitemap.ts",
-    "prebuild": "bun scripts/generate-og.ts && bun scripts/generate-sitemap.ts",
+    "predev": "bash scripts/prebuild.sh",
+    "prebuild": "bash scripts/prebuild.sh",
     "build": "vp build",
     "showcase:generate": "node scripts/generate-showcase.ts",
     "check": "vp check --fix",
