@@ -5,52 +5,41 @@ export function BlogPage() {
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-[var(--container)] px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <p className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            Engineering Blog
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Technical notes and architecture write-ups.
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            Observations, performance post-mortems, and engineering practices from our team in
-            Butwal.
-          </p>
-        </div>
+        <h1 className="max-w-3xl font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Notes from the team
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          Write-ups, post-mortems and things we&apos;ve learned building software in Butwal.
+        </p>
 
-        <div className="mt-14 space-y-6 max-w-3xl">
+        <ul className="mt-14 max-w-3xl divide-y divide-border border-y border-border">
           {posts.map((post) => (
-            <Link
-              key={post.slug}
-              to="/blog/$slug"
-              params={{ slug: post.slug }}
-              className="group block rounded-2xl border border-border bg-card p-7 transition-all hover:border-primary/50"
-            >
-              <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
-                <time dateTime={post.publishedAt}>{post.publishedAt}</time>
-                <span>·</span>
-                <span>{post.readingTime}</span>
-              </div>
+            <li key={post.slug}>
+              <Link
+                to="/blog/$slug"
+                params={{ slug: post.slug }}
+                className="group grid gap-2 py-7 sm:grid-cols-[8rem_1fr] sm:gap-8"
+              >
+                <div className="font-mono text-xs text-muted-foreground sm:pt-1.5">
+                  <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+                  <p className="mt-1">{post.readingTime}</p>
+                </div>
 
-              <h2 className="mt-3 font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                {post.title}
-              </h2>
-
-              <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{post.summary}</p>
-
-              <div className="mt-5 flex flex-wrap gap-1.5">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded border border-border bg-muted/40 px-2 py-0.5 font-mono text-[0.6875rem] text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Link>
+                <div>
+                  <h2 className="font-display text-xl font-semibold text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground">
+                    {post.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {post.summary}
+                  </p>
+                  <p className="mt-3 font-mono text-xs text-muted-foreground/80">
+                    {post.tags.join(" · ")}
+                  </p>
+                </div>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

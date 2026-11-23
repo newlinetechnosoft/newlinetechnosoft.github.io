@@ -4,32 +4,25 @@ import { Button } from "@/components/ui/button";
 
 export function ContactCta() {
   return (
-    <section className="border-t border-border bg-background py-20 text-center sm:py-24">
+    <section className="border-t border-border py-20 sm:py-24">
       <div className="mx-auto max-w-[var(--container)] px-5 sm:px-8">
-        <div className="mx-auto max-w-2xl">
-          <div className="mx-auto mb-4 inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-muted/50 font-mono text-xl font-bold text-primary">
-            ↵
-          </div>
-          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Have a project in mind?
-          </h2>
-          <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-            Tell us about your requirements, timeline, and current system. We will reply within two
-            business days with an initial technical assessment.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button size="lg" className="rounded-full px-8" render={<Link to="/contact" />}>
-              Get in touch
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-full"
-              render={<a href={`mailto:${company.email.hello}`} />}
-            >
-              Email hello
-            </Button>
-          </div>
+        <h2 className="max-w-2xl font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Have a project in mind?
+        </h2>
+        <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
+          Tell us what you need, when you need it, and what you already have in place. We&apos;ll
+          reply within two business days with a first look at how we&apos;d approach it.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button size="lg" className="rounded-md px-6" render={<Link to="/contact" />}>
+            Get in touch
+          </Button>
+          <a
+            href={`mailto:${company.email.hello}`}
+            className="text-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground"
+          >
+            or email {company.email.hello}
+          </a>
         </div>
       </div>
     </section>

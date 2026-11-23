@@ -1,72 +1,50 @@
 import { Link } from "@tanstack/react-router";
 import { services } from "@/content/services";
-import { Button } from "@/components/ui/button";
 
 export function ServicesSection() {
   return (
-    <section className="border-t border-border bg-background py-20 lg:py-28">
+    <section className="border-t border-border py-20 lg:py-28">
       <div className="mx-auto w-full max-w-[var(--container)] px-5 sm:px-8">
-        <div className="mb-14 max-w-2xl">
-          <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            Capabilities
-          </h2>
-          <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Software built for operational reality.
-          </h3>
-          <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-            We focus on core engineering disciplines where architecture, stability, and speed
-            directly determine business success.
-          </p>
-        </div>
+        <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          What we build
+        </h2>
+        <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
+          Software that businesses depend on day to day, where solid architecture matters more than
+          a clever demo.
+        </p>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <ul className="mt-12 divide-y divide-border border-y border-border">
           {services.map((service) => (
-            <div
+            <li
               key={service.id}
-              className="flex flex-col justify-between rounded-2xl border border-border bg-card p-7 transition-colors hover:border-primary/40"
+              className="grid gap-4 py-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-10"
             >
+              <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                {service.title}
+              </h3>
+
               <div>
-                <h4 className="font-display text-xl font-bold tracking-tight text-foreground">
-                  {service.title}
-                </h4>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                  {service.summary}
+                <p className="text-sm leading-relaxed text-muted-foreground">{service.summary}</p>
+                <p className="mt-3 font-mono text-xs text-muted-foreground/80">
+                  {service.stack.join(" · ")}
                 </p>
-
-                <div className="mt-5 border-t border-border/60 pt-4">
-                  <p className="font-mono text-[0.6875rem] font-medium text-muted-foreground uppercase tracking-wider">
-                    Core Deliverables
-                  </p>
-                  <ul className="mt-2.5 space-y-1.5 text-xs text-foreground">
-                    {service.deliverables.slice(0, 3).map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <span className="font-mono text-primary font-bold">↵</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-1.5 pt-3">
-                {service.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 font-mono text-[0.6875rem] text-muted-foreground"
-                  >
-                    {tech}
-                  </span>
+              <ul className="list-disc space-y-1.5 pl-4 text-sm text-foreground marker:text-muted-foreground/50">
+                {service.deliverables.slice(0, 3).map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-10 text-center">
-          <Button variant="outline" className="rounded-full" render={<Link to="/services" />}>
-            View detailed service specifications
-          </Button>
-        </div>
+        <Link
+          to="/services"
+          className="mt-8 inline-block text-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground"
+        >
+          All services and how we deliver them →
+        </Link>
       </div>
     </section>
   );

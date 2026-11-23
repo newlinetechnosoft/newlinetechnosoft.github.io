@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { jobs } from "@/content/jobs";
 import { company } from "@/content/company";
@@ -6,45 +6,50 @@ import { Button } from "@/components/ui/button";
 
 const HIRING_STEPS = [
   {
-    step: "01",
-    title: "Application & Code Review",
-    desc: "We review your past work, GitHub, or portfolio within 4 business days. We look for clean structure and clear communication.",
+    title: "We read your work",
+    desc: "We look through your GitHub or portfolio and reply within 4 business days. Clear structure and clear writing count for a lot.",
   },
   {
-    step: "02",
-    title: "Technical Discussion",
-    desc: "A 45-minute conversation with an engineer about software design and trade-offs. No trick whiteboard puzzles.",
+    title: "A conversation",
+    desc: "45 minutes with an engineer about design and trade-offs. No whiteboard puzzles.",
   },
   {
-    step: "03",
-    title: "Practical Exercise",
-    desc: "A focused, paid mini-task modeled after real production tasks (capped at 4 hours). We respect your time.",
+    title: "A small paid task",
+    desc: "Something close to real production work, capped at 4 hours. We pay you for your time.",
   },
   {
-    step: "04",
-    title: "Transparent Offer",
-    desc: "Clear compensation, role expectations, and mutual alignment on start dates.",
+    title: "An offer",
+    desc: "Pay, role and start date in plain terms, so nothing comes as a surprise.",
   },
 ];
 
 const BENEFITS = [
   {
-    title: "Sane Hours",
-    desc: `${company.officeDays}. We believe great engineering comes from rested minds, not late-night panic.`,
+    title: "Reasonable hours",
+    desc: `${company.officeDays}. Rested people write better code, and we'd rather not fix things at midnight.`,
   },
   {
-    title: "Quality Hardware",
-    desc: "Fast workstations, dual displays, and budget for necessary peripheral gear.",
+    title: "Good equipment",
+    desc: "Fast workstations, two monitors, and a budget for whatever else you need.",
   },
   {
-    title: "Learning & Books",
-    desc: "Full coverage for engineering books, technical courses, and tooling licenses.",
+    title: "Learning",
+    desc: "We cover books, courses and the tools you need to do the job.",
   },
   {
-    title: "Festival & Leave",
-    desc: "Paid annual leave, public holidays, Dashain/Tihar festival bonuses, and sick time.",
+    title: "Leave and festivals",
+    desc: "Paid annual leave, public holidays, Dashain and Tihar bonuses, and sick leave.",
   },
 ];
+
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="mt-16 grid gap-6 border-t border-border pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
+      <h2 className="font-display text-xl font-semibold text-foreground">{title}</h2>
+      <div>{children}</div>
+    </section>
+  );
+}
 
 export function CareersPage() {
   const [teamFilter, setTeamFilter] = useState<string>("All");
@@ -55,135 +60,108 @@ export function CareersPage() {
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-[var(--container)] px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <p className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            Careers
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Build software craft in Butwal.
-          </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            We are building a calm, high-standard software engineering team in Lumbini Province. We
-            look for engineers who care about clean architecture, test automation, and shipping
-            software that lasts.
-          </p>
-        </div>
+        <h1 className="max-w-3xl font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Work with us in Butwal.
+        </h1>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          We&apos;re building a calm, careful engineering team in Lumbini Province. If you like clean
+          architecture, tests that actually catch bugs, and software that lasts, we&apos;d like to
+          meet you.
+        </p>
 
-        {/* Benefits Section */}
-        <div className="mt-16">
-          <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            Environment & Benefits
-          </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {BENEFITS.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="font-display text-base font-bold text-foreground">{b.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Hiring Process */}
-        <div className="mt-20 rounded-3xl border border-border bg-muted/20 p-8 sm:p-12">
-          <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            How We Hire
-          </h2>
-          <h3 className="mt-2 font-display text-2xl font-bold text-foreground sm:text-3xl">
-            Simple, respectful, and transparent.
-          </h3>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {HIRING_STEPS.map((s) => (
-              <div key={s.step} className="border-l-2 border-primary/50 pl-4">
-                <span className="font-mono text-xs font-bold text-primary">{s.step}</span>
-                <h4 className="mt-2 font-display text-base font-bold text-foreground">{s.title}</h4>
-                <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Open Roles Section */}
-        <div className="mt-20">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <div>
-              <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-                Open Positions
-              </h2>
-              <h3 className="mt-1 font-display text-3xl font-bold text-foreground">
-                Current opportunities
-              </h3>
+        <Section title="Open roles">
+          {teams.length > 2 && (
+            <div className="mb-4 flex flex-wrap gap-x-5 gap-y-1">
+              {teams.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTeamFilter(t)}
+                  aria-pressed={teamFilter === t}
+                  className={`text-sm underline-offset-[6px] transition-colors ${
+                    teamFilter === t
+                      ? "font-medium text-foreground underline decoration-primary decoration-2"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
             </div>
-
-            {teams.length > 2 && (
-              <div className="flex gap-2">
-                {teams.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTeamFilter(t)}
-                    className={`rounded-full px-3.5 py-1 text-xs font-medium transition-colors ${
-                      teamFilter === t
-                        ? "bg-primary text-primary-foreground"
-                        : "border border-border bg-card text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          )}
 
           {filteredJobs.length === 0 ? (
-            <div className="mt-8 rounded-2xl border border-dashed border-border p-12 text-center">
-              <h4 className="font-display text-lg font-bold text-foreground">
-                No active openings matching this filter.
-              </h4>
-              <p className="mt-2 text-sm text-muted-foreground">
-                We are always interested in meeting disciplined engineers. Send a general
-                application.
+            <div className="max-w-xl">
+              <p className="font-display text-lg font-semibold text-foreground">
+                Nothing open right now.
+              </p>
+              <p className="mt-2 text-muted-foreground">
+                If you think we should talk anyway, send us a note and tell us what you&apos;d like
+                to work on.
               </p>
               <Button
-                className="mt-5 rounded-full"
+                className="mt-5 rounded-md"
                 render={
                   <a
                     href={`mailto:${company.email.careers}?subject=General%20Engineering%20Inquiry`}
                   />
                 }
               >
-                Send general application
+                Email us
               </Button>
             </div>
           ) : (
-            <div className="mt-8 space-y-4">
+            <ul className="divide-y divide-border border-y border-border">
               {filteredJobs.map((job) => (
-                <Link
-                  key={job.slug}
-                  to="/careers/$slug"
-                  params={{ slug: job.slug }}
-                  className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/50 sm:flex-row sm:items-center"
-                >
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-primary">{job.team}</span>
-                      <span className="text-muted-foreground/60">·</span>
-                      <span className="font-mono text-xs text-muted-foreground">{job.type}</span>
+                <li key={job.slug}>
+                  <Link
+                    to="/careers/$slug"
+                    params={{ slug: job.slug }}
+                    className="group flex items-center justify-between gap-4 py-5"
+                  >
+                    <div>
+                      <h3 className="font-display text-lg font-semibold text-foreground">
+                        {job.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {job.team} · {job.type} · {job.location}
+                      </p>
                     </div>
-                    <h4 className="mt-2 font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                      {job.title}
-                    </h4>
-                    <p className="mt-1 text-xs text-muted-foreground">{job.location}</p>
-                  </div>
-
-                  <div className="mt-4 sm:mt-0 flex items-center gap-2 font-mono text-xs font-semibold text-primary">
-                    <span>View role</span>
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </div>
-                </Link>
+                    <span
+                      aria-hidden="true"
+                      className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground"
+                    >
+                      →
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
-        </div>
+        </Section>
+
+        <Section title="How we hire">
+          <ol className="grid max-w-2xl gap-x-10 gap-y-7 sm:grid-cols-2">
+            {HIRING_STEPS.map((s, i) => (
+              <li key={s.title}>
+                <p className="font-mono text-xs text-muted-foreground">{i + 1}</p>
+                <h3 className="mt-1 font-display font-semibold text-foreground">{s.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+
+        <Section title="What it's like">
+          <dl className="grid max-w-2xl gap-x-10 gap-y-7 sm:grid-cols-2">
+            {BENEFITS.map((b) => (
+              <div key={b.title}>
+                <dt className="font-display font-semibold text-foreground">{b.title}</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{b.desc}</dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
       </div>
     </div>
   );

@@ -6,99 +6,76 @@ export function ProjectDetail({ project }: { project: Project }) {
   return (
     <article className="py-16 sm:py-24">
       <div className="mx-auto max-w-[var(--container)] px-5 sm:px-8">
-        <div className="mb-6">
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <span>←</span> Back to all work
-          </Link>
-        </div>
+        <Link
+          to="/work"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <span aria-hidden="true">←</span> All work
+        </Link>
 
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
-            <span>{project.client}</span>
-            <span>·</span>
-            <span>{project.period}</span>
-          </div>
+        <div className="mt-8 max-w-3xl">
+          <p className="font-mono text-xs text-muted-foreground">
+            {project.client} · {project.period}
+          </p>
 
           <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             {project.title}
           </h1>
 
-          <p className="mt-5 text-xl text-muted-foreground leading-relaxed">{project.summary}</p>
+          <p className="mt-5 text-xl leading-relaxed text-muted-foreground">{project.summary}</p>
         </div>
 
-        {/* Metrics Banner */}
-        <div className="mt-12 grid grid-cols-1 gap-4 rounded-2xl border border-border bg-muted/20 p-6 sm:grid-cols-3 sm:p-8">
+        <dl className="mt-12 flex flex-wrap gap-x-14 gap-y-6 border-y border-border py-8">
           {project.metrics.map((metric) => (
-            <div key={metric.label} className="border-l-2 border-primary/50 pl-4">
-              <p className="font-mono text-2xl font-bold text-foreground">{metric.value}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+            <div key={metric.label}>
+              <dd className="font-mono text-2xl font-semibold text-foreground">{metric.value}</dd>
+              <dt className="mt-1 text-sm text-muted-foreground">{metric.label}</dt>
             </div>
           ))}
-        </div>
+        </dl>
 
-        {/* Deep Dive Breakdown */}
-        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
-          <div className="min-w-0 space-y-12">
-            <div>
-              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-                The Problem
+        <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-20">
+          <div className="min-w-0 max-w-2xl space-y-10">
+            <section>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                The problem
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                {project.problem}
-              </p>
-            </div>
+              <p className="mt-3 leading-relaxed text-muted-foreground">{project.problem}</p>
+            </section>
 
-            <div className="border-t border-border pt-10">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-                Our Engineering Approach
+            <section>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                What we did
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                {project.approach}
-              </p>
-            </div>
+              <p className="mt-3 leading-relaxed text-muted-foreground">{project.approach}</p>
+            </section>
 
-            <div className="border-t border-border pt-10">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-                The Outcome
+            <section>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                How it turned out
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                {project.outcome}
-              </p>
-            </div>
+              <p className="mt-3 leading-relaxed text-muted-foreground">{project.outcome}</p>
+            </section>
           </div>
 
-          <div className="min-w-0">
-            <div className="rounded-2xl border border-border bg-card p-5 sm:p-8">
-              <h3 className="font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-                Technology Stack
-              </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-lg border border-border bg-muted/60 px-3 py-1 font-mono text-xs text-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+          <aside className="min-w-0">
+            <h2 className="font-display font-semibold text-foreground">Built with</h2>
+            <p className="mt-3 font-mono text-sm leading-relaxed text-muted-foreground">
+              {project.stack.join(" · ")}
+            </p>
 
-              <div className="mt-8 border-t border-border pt-6">
-                <h4 className="font-display text-base font-semibold text-foreground">
-                  Building something similar?
-                </h4>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  Discuss your project scope and architecture requirements with our team.
-                </p>
-                <Button className="mt-4 w-full rounded-xl" render={<Link to="/contact" />}>
-                  Start a conversation
-                </Button>
-              </div>
+            <div className="mt-10 border-t border-border pt-6">
+              <h2 className="font-display font-semibold text-foreground">
+                Building something similar?
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Tell us about the scope and we&apos;ll tell you honestly how we&apos;d approach it.
+              </p>
+              <Button className="mt-4 rounded-md" render={<Link to="/contact" />}>
+                Talk to us
+              </Button>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </article>

@@ -1,118 +1,87 @@
+import type { ReactNode } from "react";
 import { company } from "@/content/company";
 import { principles } from "@/content/principles";
 import { team } from "@/content/team";
+
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="mt-16 grid gap-6 border-t border-border pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
+      <h2 className="font-display text-xl font-semibold text-foreground">{title}</h2>
+      <div>{children}</div>
+    </section>
+  );
+}
 
 export function AboutPage() {
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-[var(--container)] px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <p className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            About NewLine
-          </p>
-          <h1 className="mt-2 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Software engineering from Butwal, Nepal.
-          </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            NewLine Technosoft was established in {company.location} with a singular focus:
-            engineering resilient, production-grade software systems without bloated overhead or
-            buzzword theater.
-          </p>
-        </div>
+        <h1 className="max-w-3xl font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          We build software from Butwal.
+        </h1>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          NewLine Technosoft started in {company.location} with a simple aim: build software that
+          works properly and keeps working, without the padding and the buzzwords.
+        </p>
 
-        {/* Story & Context Section */}
-        <div className="mt-16 grid gap-12 lg:grid-cols-2">
-          <div className="rounded-3xl border border-border bg-card p-8 sm:p-10">
-            <h2 className="font-display text-2xl font-bold text-foreground">Why Butwal?</h2>
-            <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground">
-              <p>
-                Butwal is a central commercial and transit hub in Lumbini Province. While Kathmandu
-                has historically concentrated the country&apos;s tech companies, modern engineering
-                tools and remote infrastructure allow us to build high-standard software from right
-                here.
-              </p>
-              <p>
-                Our location gives us direct access to strong engineering talent across western
-                Nepal, sane living rhythms, and low team turnover. We invest in regional craft
-                rather than centralization.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-border bg-card p-8 sm:p-10">
-            <h2 className="font-display text-2xl font-bold text-foreground">Our Core Focus</h2>
-            <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground">
-              <p>
-                We do not build speculative hype. We build systems that run reliably day in and day
-                out: inventory databases, logistics dispatchers, healthcare management portals, and
-                client APIs.
-              </p>
-              <p>
-                Every project is anchored by a written technical specification, continuous automated
-                testing, and direct collaboration between client stakeholders and the engineers
-                writing the code.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Principles Section */}
-        <div className="mt-20">
-          <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-            Guiding Principles
-          </h2>
-          <h3 className="mt-2 font-display text-3xl font-bold text-foreground">
-            How we operate every day.
-          </h3>
-
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {principles.map((principle) => (
-              <div
-                key={principle.number}
-                className="rounded-2xl border border-border bg-muted/20 p-6 sm:p-8"
-              >
-                <span className="font-mono text-sm font-bold text-primary">{principle.number}</span>
-                <h4 className="mt-2 font-display text-lg font-bold text-foreground">
-                  {principle.title}
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {principle.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Team Section with Labeled Placeholder Component */}
-        <div className="mt-20">
-          <div className="max-w-2xl">
-            <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-              The Team
-            </h2>
-            <h3 className="mt-2 font-display text-3xl font-bold text-foreground">
-              The people behind the code.
-            </h3>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Real team profiles and photos are being updated.
+        <Section title="Why Butwal?">
+          <div className="max-w-2xl space-y-4 leading-relaxed text-muted-foreground">
+            <p>
+              Butwal is a commercial and transit hub for Lumbini Province. Most of Nepal&apos;s tech
+              companies are in Kathmandu, but you no longer have to be there to build good software.
+              Modern tools and remote work let us do the same job from here.
+            </p>
+            <p>
+              Being here also means we can hire engineers from across western Nepal, people keep a
+              saner pace of life, and they tend to stay. We&apos;d rather help grow the scene
+              outside the capital than add to the crowd in it.
             </p>
           </div>
+        </Section>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-card p-6">
-                {/* Labeled Neutral Placeholder Component */}
-                <div className="flex h-44 w-full items-center justify-center rounded-xl border border-dashed border-border bg-muted/40 font-mono text-xs text-muted-foreground">
-                  <span>[PHOTO PLACEHOLDER: {member.name}]</span>
-                </div>
-                <h4 className="mt-4 font-display text-base font-bold text-foreground">
-                  {member.name}
-                </h4>
-                <p className="font-mono text-xs text-primary">{member.role}</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{member.bio}</p>
-              </div>
-            ))}
+        <Section title="What we work on">
+          <div className="max-w-2xl space-y-4 leading-relaxed text-muted-foreground">
+            <p>
+              Things people rely on every day: inventory databases, logistics dispatch, healthcare
+              management portals, client APIs. Not much of it is glamorous, and that&apos;s fine.
+            </p>
+            <p>
+              Every project starts with a written spec. We test as we build, and you talk directly
+              to the engineers writing the code.
+            </p>
           </div>
-        </div>
+        </Section>
+
+        <Section title="How we work">
+          <ol className="max-w-2xl divide-y divide-border">
+            {principles.map((principle) => (
+              <li
+                key={principle.number}
+                className="grid gap-1 py-5 first:pt-0 sm:grid-cols-[3rem_1fr] sm:gap-4"
+              >
+                <span className="font-mono text-sm text-muted-foreground">{principle.number}</span>
+                <div>
+                  <h3 className="font-display font-semibold text-foreground">{principle.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {principle.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Section>
+
+        <Section title="The team">
+          <ul className="max-w-2xl divide-y divide-border">
+            {team.map((member, i) => (
+              <li key={i} className="py-5 first:pt-0">
+                <p className="font-display font-semibold text-foreground">{member.name}</p>
+                <p className="text-sm text-primary">{member.role}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
       </div>
     </div>
   );

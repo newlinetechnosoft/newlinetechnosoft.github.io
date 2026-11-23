@@ -3,22 +3,18 @@ import { Button } from "@/components/ui/button";
 
 export function NotFound() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-4 py-28 text-center">
-      <div className="mb-4 inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-card font-mono text-xl font-bold text-primary">
+    <div className="flex flex-1 flex-col items-center justify-center px-5 py-28 text-center">
+      <p aria-hidden="true" className="mb-3 font-mono text-5xl text-primary">
         ↵
-      </div>
-      <h1 className="mb-2 font-display text-4xl font-bold tracking-tight text-foreground">
+      </p>
+      <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         404 — Line not found
       </h1>
-      <p className="mb-8 max-w-sm text-balance text-muted-foreground">
-        The page you are looking for does not exist or has been moved to a new route.
+      <p className="mt-3 max-w-sm text-muted-foreground">
+        That page doesn&apos;t exist, or it moved. The home page is a good place to start over.
       </p>
-      <Button
-        size="lg"
-        className="h-10 rounded-full px-6 text-sm font-semibold"
-        render={<Link to="/" />}
-      >
-        Return to Home
+      <Button className="mt-8 h-10 rounded-md px-5 text-sm font-semibold" render={<Link to="/" />}>
+        Back to home
       </Button>
     </div>
   );

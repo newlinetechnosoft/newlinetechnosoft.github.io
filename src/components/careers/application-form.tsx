@@ -1,34 +1,72 @@
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
 import { submitForm } from "@/lib/forms";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 
+const INPUT =
+  "mt-1.5 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-ring disabled:opacity-60";
+
+function Field({
+  id,
+  label,
+  optional,
+  error,
+  children,
+}: {
+  id: string;
+  label: string;
+  optional?: boolean;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="min-w-0">
+      <label htmlFor={id} className="block text-sm font-medium text-foreground">
+        {label}
+        {optional && <span className="font-normal text-muted-foreground"> (optional)</span>}
+      </label>
+      {children}
+      {error && (
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+const emptyForm = (role: string) => ({
+  name: "",
+  email: "",
+  phone: "",
+  role,
+  profileUrl: "",
+  cvLink: "",
+  note: "",
+  botcheck: "",
+});
+
 export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: jobTitle,
-    profileUrl: "",
-    cvLink: "",
-    note: "",
-    botcheck: "",
-  });
+  const [formData, setFormData] = useState(emptyForm(jobTitle));
+
+  const set =
+    (key: keyof ReturnType<typeof emptyForm>) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((prev) => ({ ...prev, [key]: e.target.value }));
 
   function validate() {
     const errs: Record<string, string> = {};
-    if (!formData.name.trim()) errs.name = "Full name is required.";
+    if (!formData.name.trim()) errs.name = "Please enter your name.";
     if (!formData.email.trim() || !formData.email.includes("@")) {
-      errs.email = "A valid email address is required.";
+      errs.email = "That email address doesn't look right.";
     }
     if (!formData.phone.trim()) {
-      errs.phone = "Phone number is required (+977 format preferred).";
+      errs.phone = "Please add a phone number (+977 preferred).";
     }
     if (!formData.cvLink.trim() || !formData.cvLink.startsWith("http")) {
-      errs.cvLink =
-        "A valid link to your CV/Resume is required (Google Drive, Dropbox, GitHub, etc.).";
+      errs.cvLink = "Please add a link to your CV (Google Drive, Dropbox, GitHub, anything that opens).";
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -38,8 +76,8 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
     e.preventDefault();
     if (!validate()) {
       toast.add({
-        title: "Validation Error",
-        description: "Please resolve the highlighted fields before submitting.",
+        title: "Something's missing",
+        description: "A few fields need another look.",
         type: "error",
       });
       return;
@@ -51,24 +89,15 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
 
     if (result.success) {
       toast.add({
-        title: "Application Received",
+        title: "Application received",
         description: result.message,
         type: "success",
       });
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        role: jobTitle,
-        profileUrl: "",
-        cvLink: "",
-        note: "",
-        botcheck: "",
-      });
+      setFormData(emptyForm(jobTitle));
       setErrors({});
     } else {
       toast.add({
-        title: "Submission Error",
+        title: "That didn't go through",
         description: result.message,
         type: "error",
       });
@@ -82,142 +111,113 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
         type="text"
         name="botcheck"
         value={formData.botcheck}
-        onChange={(e) => setFormData({ ...formData, botcheck: e.target.value })}
+        onChange={set("botcheck")}
         className="hidden"
         tabIndex={-1}
         autoComplete="off"
       />
 
-      <div>
-        <label htmlFor="app-name" className="block text-xs font-medium text-foreground">
-          Full Name <span className="text-primary">*</span>
-        </label>
+      <Field id="app-name" label="Your name" error={errors.name}>
         <input
           id="app-name"
+          name="name"
           type="text"
           required
+          autoComplete="name"
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? "app-name-error" : undefined}
           disabled={loading}
           value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+          onChange={set("name")}
+          className={INPUT}
           placeholder="Aayush Sharma"
         />
-        {errors.name && (
-          <p id="app-name-error" className="mt-1 text-xs text-destructive">
-            {errors.name}
-          </p>
-        )}
-      </div>
+      </Field>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="min-w-0">
-          <label htmlFor="app-email" className="block text-xs font-medium text-foreground">
-            Email Address <span className="text-primary">*</span>
-          </label>
+        <Field id="app-email" label="Email" error={errors.email}>
           <input
             id="app-email"
+            name="email"
             type="email"
             required
+            autoComplete="email"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "app-email-error" : undefined}
             disabled={loading}
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+            onChange={set("email")}
+            className={INPUT}
             placeholder="aayush@example.com"
           />
-          {errors.email && (
-            <p id="app-email-error" className="mt-1 text-xs text-destructive">
-              {errors.email}
-            </p>
-          )}
-        </div>
+        </Field>
 
-        <div className="min-w-0">
-          <label htmlFor="app-phone" className="block text-xs font-medium text-foreground">
-            Phone Number <span className="text-primary">*</span>
-          </label>
+        <Field id="app-phone" label="Phone" error={errors.phone}>
           <input
             id="app-phone"
+            name="phone"
             type="tel"
             required
+            autoComplete="tel"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "app-phone-error" : undefined}
             disabled={loading}
             value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+            onChange={set("phone")}
+            className={INPUT}
             placeholder="+977 9800000000"
           />
-          {errors.phone && (
-            <p id="app-phone-error" className="mt-1 text-xs text-destructive">
-              {errors.phone}
-            </p>
-          )}
-        </div>
+        </Field>
       </div>
 
-      <div>
-        <label htmlFor="app-cv" className="block text-xs font-medium text-foreground">
-          CV / Resume Link <span className="text-primary">*</span>
-        </label>
+      <Field id="app-cv" label="Link to your CV" error={errors.cvLink}>
         <input
           id="app-cv"
+          name="cvLink"
           type="url"
           required
           aria-invalid={!!errors.cvLink}
           aria-describedby={errors.cvLink ? "app-cv-error" : undefined}
           disabled={loading}
           value={formData.cvLink}
-          onChange={(e) => setFormData({ ...formData, cvLink: e.target.value })}
-          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
+          onChange={set("cvLink")}
+          className={`${INPUT} font-mono text-xs`}
           placeholder="https://drive.google.com/file/d/..."
         />
-        {errors.cvLink && (
-          <p id="app-cv-error" className="mt-1 text-xs text-destructive">
-            {errors.cvLink}
-          </p>
-        )}
-      </div>
+      </Field>
 
-      <div>
-        <label htmlFor="app-profile" className="block text-xs font-medium text-foreground">
-          GitHub or Portfolio Link (Optional)
-        </label>
+      <Field id="app-profile" label="GitHub or portfolio" optional>
         <input
           id="app-profile"
+          name="profileUrl"
           type="url"
           disabled={loading}
           value={formData.profileUrl}
-          onChange={(e) => setFormData({ ...formData, profileUrl: e.target.value })}
-          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
+          onChange={set("profileUrl")}
+          className={`${INPUT} font-mono text-xs`}
           placeholder="https://github.com/..."
         />
-      </div>
+      </Field>
 
-      <div>
-        <label htmlFor="app-note" className="block text-xs font-medium text-foreground">
-          Short Note / Introduction
-        </label>
+      <Field id="app-note" label="Anything you'd like us to know" optional>
         <textarea
           id="app-note"
+          name="note"
           rows={3}
           disabled={loading}
           value={formData.note}
-          onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring resize-y"
-          placeholder="Tell us what you have worked on recently and why you want to work here."
+          onChange={set("note")}
+          className={`${INPUT} resize-y`}
+          placeholder="What you've worked on recently, and why this role."
         />
-      </div>
+      </Field>
 
       <Button
         type="submit"
         disabled={loading}
-        className="w-full h-auto min-h-10 py-2.5 px-4 rounded-xl font-medium whitespace-normal break-words text-center leading-snug"
+        className="h-auto min-h-10 w-full rounded-md px-4 py-2.5 text-center leading-snug font-medium break-words whitespace-normal"
       >
-        {loading ? "Transmitting application..." : "Submit Application"}
+        {loading ? "Sending…" : "Send application"}
       </Button>
     </form>
   );

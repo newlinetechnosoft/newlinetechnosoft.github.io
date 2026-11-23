@@ -7,39 +7,33 @@ export function Hero() {
   return (
     <section className="relative flex min-h-[calc(100dvh_-_var(--nav-height))] flex-1 items-center overflow-x-clip px-5 py-16 lg:px-8 lg:py-24">
       <div className="mx-auto grid w-full max-w-[var(--container)] grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-        <div className="text-center lg:text-left">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/60 px-3.5 py-1 text-xs font-mono text-muted-foreground">
-            <span className="inline-block size-1.5 rounded-full bg-primary" />
-            <span>{company.location}</span>
-          </div>
+        <div>
+          <p className="mb-5 font-mono text-xs text-muted-foreground">{company.location}</p>
 
-          <h1 className="mb-6 font-display text-[clamp(2.6rem,6.5vw,4.4rem)] leading-[1.04] font-bold tracking-[-0.035em] text-balance text-foreground">
-            <span>Reliable software systems,</span>{" "}
-            <span className="text-primary block lg:inline">engineered with precision.</span>
+          <h1 className="mb-6 font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.05] font-bold tracking-[-0.03em] text-foreground">
+            Software for businesses in Nepal
+            <span className="text-primary">, built by people you can call.</span>
           </h1>
 
-          <p className="mx-auto mb-8 max-w-[34rem] text-lg leading-[1.6] text-pretty text-muted-foreground lg:mx-0">
-            NewLine Technosoft is a software engineering company based in Butwal. We build resilient
-            web platforms, mobile applications, and backend cloud systems for teams that value craft
-            and longevity.
+          <p className="mb-8 max-w-[32rem] text-lg leading-relaxed text-muted-foreground">
+            We&apos;re a small team in Butwal. We build websites, mobile apps and the systems behind
+            them, and we stick around after launch to fix what breaks.
           </p>
 
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button
               size="lg"
-              className="h-11 rounded-full px-7 text-[0.9375rem] font-semibold"
+              className="h-11 rounded-md px-6 text-[0.9375rem] font-semibold"
               render={<Link to="/contact" />}
             >
-              Start a project
+              Tell us what you&apos;re building
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-11 rounded-full px-6 text-[0.9375rem] font-semibold"
-              render={<Link to="/services" />}
+            <Link
+              to="/services"
+              className="text-[0.9375rem] font-medium underline decoration-border underline-offset-4 hover:decoration-foreground"
             >
-              Explore services
-            </Button>
+              What we build
+            </Link>
           </div>
         </div>
 

@@ -1,54 +1,54 @@
 import { Link } from "@tanstack/react-router";
 import { projects } from "@/content/projects";
-import { Button } from "@/components/ui/button";
 
 export function WorkTeaser() {
   return (
-    <section className="border-t border-border bg-background py-20 lg:py-28">
+    <section className="border-t border-border py-20 lg:py-28">
       <div className="mx-auto w-full max-w-[var(--container)] px-5 sm:px-8">
-        <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
-              Case Studies
-            </h2>
-            <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Selected client work.
-            </h3>
-          </div>
-          <Button variant="outline" className="w-fit rounded-full" render={<Link to="/work" />}>
-            View all work
-          </Button>
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Recent work
+          </h2>
+          <Link
+            to="/work"
+            className="text-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground"
+          >
+            All work →
+          </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <ul className="mt-12 divide-y divide-border border-y border-border">
           {projects.map((project) => (
-            <Link
-              key={project.slug}
-              to="/work/$slug"
-              params={{ slug: project.slug }}
-              className="group block rounded-2xl border border-border bg-card p-7 transition-all hover:border-primary/50 hover:shadow-sm"
-            >
-              <div className="flex items-center justify-between font-mono text-xs text-muted-foreground">
-                <span>{project.client}</span>
-                <span>{project.period}</span>
-              </div>
-              <h4 className="mt-3 font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                {project.title}
-              </h4>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                {project.summary}
-              </p>
-              <div className="mt-6 grid grid-cols-3 gap-2 border-t border-border/60 pt-4">
-                {project.metrics.map((m) => (
-                  <div key={m.label}>
-                    <p className="font-mono text-sm font-bold text-foreground">{m.value}</p>
-                    <p className="text-[0.6875rem] text-muted-foreground">{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            </Link>
+            <li key={project.slug}>
+              <Link
+                to="/work/$slug"
+                params={{ slug: project.slug }}
+                className="group grid gap-4 py-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-12"
+              >
+                <div>
+                  <p className="font-mono text-xs text-muted-foreground">
+                    {project.client} · {project.period}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-semibold text-foreground underline decoration-transparent underline-offset-4 transition-colors group-hover:decoration-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                    {project.summary}
+                  </p>
+                </div>
+
+                <dl className="flex flex-wrap gap-x-8 gap-y-3 lg:justify-end">
+                  {project.metrics.map((m) => (
+                    <div key={m.label}>
+                      <dd className="font-mono text-sm font-semibold text-foreground">{m.value}</dd>
+                      <dt className="text-xs text-muted-foreground">{m.label}</dt>
+                    </div>
+                  ))}
+                </dl>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

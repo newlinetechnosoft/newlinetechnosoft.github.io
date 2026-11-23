@@ -1,28 +1,57 @@
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
 import { submitForm } from "@/lib/forms";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 
+const INPUT =
+  "mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-ring disabled:opacity-60";
+
+function Field({
+  id,
+  label,
+  error,
+  children,
+}: {
+  id: string;
+  label: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-foreground">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+const emptyForm = { name: "", email: "", subject: "", message: "", botcheck: "" };
+
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    botcheck: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
+
+  const set =
+    (key: keyof typeof emptyForm) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((prev) => ({ ...prev, [key]: e.target.value }));
 
   function validate() {
     const errs: Record<string, string> = {};
-    if (!formData.name.trim()) errs.name = "Full name is required.";
+    if (!formData.name.trim()) errs.name = "Please enter your name.";
     if (!formData.email.trim() || !formData.email.includes("@")) {
-      errs.email = "A valid email address is required.";
+      errs.email = "That email address doesn't look right.";
     }
-    if (!formData.subject.trim()) errs.subject = "Subject is required.";
+    if (!formData.subject.trim()) errs.subject = "Add a short subject so we know where to start.";
     if (!formData.message.trim() || formData.message.length < 10) {
-      errs.message = "Message must be at least 10 characters.";
+      errs.message = "Tell us a little more (at least 10 characters).";
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -32,8 +61,8 @@ export function ContactForm() {
     e.preventDefault();
     if (!validate()) {
       toast.add({
-        title: "Validation Error",
-        description: "Please check the required fields below.",
+        title: "Something's missing",
+        description: "A few fields need another look.",
         type: "error",
       });
       return;
@@ -48,21 +77,15 @@ export function ContactForm() {
 
     if (result.success) {
       toast.add({
-        title: "Message Sent",
+        title: "Message sent",
         description: result.message,
         type: "success",
       });
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        botcheck: "",
-      });
+      setFormData(emptyForm);
       setErrors({});
     } else {
       toast.add({
-        title: "Transmission Failed",
+        title: "Couldn't send that",
         description: result.message,
         type: "error",
       });
@@ -70,111 +93,87 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="min-w-0 space-y-5">
       <input
         type="text"
         name="botcheck"
         value={formData.botcheck}
-        onChange={(e) => setFormData({ ...formData, botcheck: e.target.value })}
+        onChange={set("botcheck")}
         className="hidden"
         tabIndex={-1}
         autoComplete="off"
       />
 
-      <div>
-        <label htmlFor="contact-name" className="block text-xs font-medium text-foreground">
-          Your Name <span className="text-primary">*</span>
-        </label>
-        <input
-          id="contact-name"
-          type="text"
-          required
-          aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? "contact-name-error" : undefined}
-          disabled={loading}
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
-          placeholder="Ramesh Shrestha"
-        />
-        {errors.name && (
-          <p id="contact-name-error" className="mt-1 text-xs text-destructive">
-            {errors.name}
-          </p>
-        )}
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field id="contact-name" label="Your name" error={errors.name}>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+            disabled={loading}
+            value={formData.name}
+            onChange={set("name")}
+            className={INPUT}
+            placeholder="Ramesh Shrestha"
+          />
+        </Field>
+
+        <Field id="contact-email" label="Email" error={errors.email}>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+            disabled={loading}
+            value={formData.email}
+            onChange={set("email")}
+            className={INPUT}
+            placeholder="ramesh@company.com"
+          />
+        </Field>
       </div>
 
-      <div>
-        <label htmlFor="contact-email" className="block text-xs font-medium text-foreground">
-          Email Address <span className="text-primary">*</span>
-        </label>
-        <input
-          id="contact-email"
-          type="email"
-          required
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "contact-email-error" : undefined}
-          disabled={loading}
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
-          placeholder="ramesh@company.com"
-        />
-        {errors.email && (
-          <p id="contact-email-error" className="mt-1 text-xs text-destructive">
-            {errors.email}
-          </p>
-        )}
-      </div>
-
-      <div>
-        <label htmlFor="contact-subject" className="block text-xs font-medium text-foreground">
-          Subject / Project Type <span className="text-primary">*</span>
-        </label>
+      <Field id="contact-subject" label="What's it about?" error={errors.subject}>
         <input
           id="contact-subject"
+          name="subject"
           type="text"
           required
           aria-invalid={!!errors.subject}
           aria-describedby={errors.subject ? "contact-subject-error" : undefined}
           disabled={loading}
           value={formData.subject}
-          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
-          placeholder="Web platform rewrite / Mobile app development"
+          onChange={set("subject")}
+          className={INPUT}
+          placeholder="Rebuilding our web app, a mobile app for our shop…"
         />
-        {errors.subject && (
-          <p id="contact-subject-error" className="mt-1 text-xs text-destructive">
-            {errors.subject}
-          </p>
-        )}
-      </div>
+      </Field>
 
-      <div>
-        <label htmlFor="contact-message" className="block text-xs font-medium text-foreground">
-          Message & Requirements <span className="text-primary">*</span>
-        </label>
+      <Field id="contact-message" label="Tell us more" error={errors.message}>
         <textarea
           id="contact-message"
-          rows={4}
+          name="message"
+          rows={6}
           required
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "contact-message-error" : undefined}
           disabled={loading}
           value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
-          placeholder="Briefly describe what you are building, target timeline, and existing systems."
+          onChange={set("message")}
+          className={`${INPUT} resize-y`}
+          placeholder="What are you building, when do you need it, and what do you already have in place?"
         />
-        {errors.message && (
-          <p id="contact-message-error" className="mt-1 text-xs text-destructive">
-            {errors.message}
-          </p>
-        )}
-      </div>
+      </Field>
 
-      <Button type="submit" disabled={loading} className="w-full rounded-xl font-medium">
-        {loading ? "Sending message..." : "Send Message"}
+      <Button type="submit" disabled={loading} className="rounded-md px-6 font-medium">
+        {loading ? "Sending…" : "Send message"}
       </Button>
     </form>
   );
