@@ -15,9 +15,9 @@ export function JobDetail({ job }: { job: Job }) {
           </Link>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_1.1fr] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1.1fr)] lg:gap-16">
           {/* Job Specification */}
-          <div>
+          <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground">
               <span className="font-bold text-primary">{job.team}</span>
               <span>·</span>
@@ -72,8 +72,8 @@ export function JobDetail({ job }: { job: Job }) {
           </div>
 
           {/* Application Form Card */}
-          <div className="lg:sticky lg:top-24 h-fit">
-            <div className="rounded-3xl border border-border bg-card p-7 sm:p-9 shadow-sm">
+          <div className="min-w-0 lg:sticky lg:top-24 h-fit">
+            <div className="rounded-3xl border border-border bg-card p-5 sm:p-8 md:p-9 shadow-sm">
               <h2 className="font-display text-2xl font-bold text-foreground">
                 Apply for this position
               </h2>

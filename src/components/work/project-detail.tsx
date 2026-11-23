@@ -40,8 +40,8 @@ export function ProjectDetail({ project }: { project: Project }) {
         </div>
 
         {/* Deep Dive Breakdown */}
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1.8fr_1fr]">
-          <div className="space-y-12">
+        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
+          <div className="min-w-0 space-y-12">
             <div>
               <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
                 The Problem
@@ -70,8 +70,8 @@ export function ProjectDetail({ project }: { project: Project }) {
             </div>
           </div>
 
-          <div>
-            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+          <div className="min-w-0">
+            <div className="rounded-2xl border border-border bg-card p-5 sm:p-8">
               <h3 className="font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                 Technology Stack
               </h3>

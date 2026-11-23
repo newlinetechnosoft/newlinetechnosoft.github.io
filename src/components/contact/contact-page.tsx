@@ -18,9 +18,9 @@ export function ContactPage() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
           {/* Form */}
-          <div className="rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-sm">
+          <div className="min-w-0 rounded-3xl border border-border bg-card p-5 sm:p-8 md:p-10 shadow-sm">
             <h2 className="font-display text-2xl font-bold text-foreground">Send us a message</h2>
             <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
               Fill out the details below. We review inquiries directly with our engineering team and
@@ -32,7 +32,7 @@ export function ContactPage() {
           </div>
 
           {/* Details & Map Link-Out */}
-          <div className="space-y-8">
+          <div className="min-w-0 space-y-8">
             <div className="rounded-3xl border border-border bg-card p-8">
               <h2 className="font-mono text-xs font-semibold tracking-wider text-primary uppercase">
                 Office Information

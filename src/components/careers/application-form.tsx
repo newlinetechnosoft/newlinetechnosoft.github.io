@@ -101,7 +101,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
           disabled={loading}
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
           placeholder="Aayush Sharma"
         />
         {errors.name && (
@@ -112,7 +112,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div>
+        <div className="min-w-0">
           <label htmlFor="app-email" className="block text-xs font-medium text-foreground">
             Email Address <span className="text-primary">*</span>
           </label>
@@ -125,7 +125,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
             disabled={loading}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+            className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
             placeholder="aayush@example.com"
           />
           {errors.email && (
@@ -135,7 +135,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
           )}
         </div>
 
-        <div>
+        <div className="min-w-0">
           <label htmlFor="app-phone" className="block text-xs font-medium text-foreground">
             Phone Number <span className="text-primary">*</span>
           </label>
@@ -148,7 +148,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
             disabled={loading}
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+            className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
             placeholder="+977 9800000000"
           />
           {errors.phone && (
@@ -172,7 +172,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
           disabled={loading}
           value={formData.cvLink}
           onChange={(e) => setFormData({ ...formData, cvLink: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
+          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
           placeholder="https://drive.google.com/file/d/..."
         />
         {errors.cvLink && (
@@ -192,7 +192,7 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
           disabled={loading}
           value={formData.profileUrl}
           onChange={(e) => setFormData({ ...formData, profileUrl: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
+          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring font-mono text-xs"
           placeholder="https://github.com/..."
         />
       </div>
@@ -207,13 +207,17 @@ export function ApplicationForm({ jobTitle }: { jobTitle: string }) {
           disabled={loading}
           value={formData.note}
           onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-          className="mt-1.5 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring"
+          className="mt-1.5 w-full min-w-0 rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-ring resize-y"
           placeholder="Tell us what you have worked on recently and why you want to work here."
         />
       </div>
 
-      <Button type="submit" disabled={loading} className="w-full rounded-xl font-medium">
-        {loading ? "Transmitting application..." : `Submit Application for ${jobTitle}`}
+      <Button
+        type="submit"
+        disabled={loading}
+        className="w-full h-auto min-h-10 py-2.5 px-4 rounded-xl font-medium whitespace-normal break-words text-center leading-snug"
+      >
+        {loading ? "Transmitting application..." : "Submit Application"}
       </Button>
     </form>
   );
