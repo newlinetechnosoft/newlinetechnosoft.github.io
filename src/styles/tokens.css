@@ -1,0 +1,44 @@
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  --color-brand: oklch(0.62 0.19 275);
+  --color-brand-soft: oklch(0.95 0.04 275);
+  --color-primary-text: oklch(0.55 0.2 275);
+  --color-primary-hover: oklch(0.58 0.2 275);
+
+  --color-success: oklch(0.62 0.15 150);
+  --color-success-hover: oklch(0.55 0.15 150);
+  --color-success-foreground: oklch(1 0 0);
+  --color-warning: oklch(0.75 0.15 75);
+  --color-backdrop: oklch(0.18 0.02 270 / 0.45);
+}
+
+@theme inline {
+  --font-heading: var(--font-display);
+  --font-sans:
+    "Geist Variable", "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:
+    "Bricolage Grotesque Variable", "Bricolage Grotesque", "Geist Variable", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+  --container: 75rem;
+  --nav-gutter: 0.5rem;
+  --nav-piece-height: 3rem;
+  --nav-height: calc(var(--nav-piece-height) + 2 * var(--nav-gutter));
+}
+
+.dark {
+  color-scheme: dark;
+  --color-brand: oklch(0.74 0.16 275);
+  --color-brand-soft: oklch(0.24 0.06 275 / 0.3);
+  --color-primary-text: oklch(0.78 0.15 275);
+  --color-primary-hover: oklch(0.82 0.16 275);
+  --color-backdrop: oklch(0.08 0.015 275 / 0.7);
+}

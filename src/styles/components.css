@@ -1,0 +1,196 @@
+@layer components {
+  .hero-visual {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      border-radius: 24px;
+    }
+
+    &::before {
+      inset: 26% -1.25rem -1.25rem;
+      background: color-mix(in oklab, var(--color-brand) 15%, transparent);
+      transform: rotate(2.5deg);
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: shape-float-alt 9s ease-in-out infinite;
+      }
+    }
+
+    &::after {
+      inset: 20% -0.75rem -0.75rem;
+      background: color-mix(in oklab, var(--color-brand) 25%, transparent);
+      transform: rotate(-2deg);
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: shape-float 8s ease-in-out infinite;
+      }
+    }
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (width < 1024px) {
+      &::before {
+        inset: 26% -0.75rem -0.75rem;
+      }
+
+      &::after {
+        inset: 20% -0.5rem -0.5rem;
+      }
+    }
+  }
+
+  @keyframes shape-float {
+    0%,
+    100% {
+      transform: rotate(-2deg) translateY(0);
+    }
+
+    50% {
+      transform: rotate(-2.6deg) translateY(-7px);
+    }
+  }
+
+  @keyframes shape-float-alt {
+    0%,
+    100% {
+      transform: rotate(2.5deg) translateY(0);
+    }
+
+    50% {
+      transform: rotate(3.1deg) translateY(-6px);
+    }
+  }
+}
+
+@utility site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  padding-block: max(var(--nav-gutter), env(safe-area-inset-top)) var(--nav-gutter);
+  padding-inline: max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-left))
+    max(clamp(0.75rem, 2vi, 1.25rem), env(safe-area-inset-right));
+  pointer-events: none;
+}
+
+@layer components {
+  .site-footer {
+    position: relative;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-background);
+  }
+
+  .site-footer-wordmark {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .site-footer-signature-word {
+    background-image: var(--signature-wave);
+    background-size: var(--signature-wave-period) 100%;
+    background-repeat: repeat-x;
+    --signature-wave-period: 7em;
+    --signature-wave: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklab, var(--color-brand) 45%, transparent) 20%,
+      color-mix(in oklab, var(--color-brand) 85%, transparent) 35%,
+      color-mix(in oklab, var(--color-brand) 45%, transparent) 50%,
+      transparent 65%
+    );
+    display: flex;
+    align-items: baseline;
+    gap: 0.12em;
+    width: fit-content;
+    margin-bottom: 0;
+    pointer-events: auto;
+    text-decoration: none;
+    transform: translateY(-0.09em);
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 9vw, 8rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-kerning: normal;
+    white-space: nowrap;
+    color: color-mix(in oklab, var(--color-primary-text) 35%, transparent);
+    transition: color 400ms ease;
+    background-position: 0 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: site-footer-signature-word-wave 8s linear infinite;
+    }
+  }
+
+  .site-footer-signature-arrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    font-weight: 400;
+    line-height: 1;
+    transform: translateY(-0.02em);
+    transition: transform 300ms ease;
+  }
+
+  @keyframes site-footer-signature-word-wave {
+    from {
+      background-position: 0 50%;
+    }
+
+    to {
+      background-position: var(--signature-wave-period) 50%;
+    }
+  }
+
+  .site-footer-wordmark[data-wave="off"] .site-footer-signature-word {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .site-footer-signature-word {
+      background-image: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .site-footer-signature-word {
+      background-image: none;
+    }
+  }
+
+  .site-footer:has(.footer-brand:hover, .footer-brand:focus-visible) .site-footer-signature-word {
+    color: color-mix(in oklab, var(--color-primary-text) 70%, transparent);
+  }
+
+  .site-footer:has(.footer-brand:hover, .footer-brand:focus-visible) .site-footer-signature-arrow {
+    transform: translateY(-0.02em) translateX(4px);
+  }
+
+  .site-piece {
+    pointer-events: auto;
+    border: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-card) 86%, transparent);
+    box-shadow:
+      0 18px 40px -24px color-mix(in oklab, var(--color-primary) 50%, transparent),
+      0 6px 18px -10px oklch(0 0 0 / 0.14);
+    backdrop-filter: blur(20px) saturate(1.6);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .site-piece {
+      background: var(--color-card);
+      backdrop-filter: none;
+    }
+  }
+}
