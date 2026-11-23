@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import logoImg from "@/assets/logos/logo.webp";
 import { company } from "@/content/company";
 import { NAV_ITEMS, siteConfig } from "@/constants";
 
@@ -32,8 +33,16 @@ export function Footer() {
             <Link
               to="/"
               aria-label={`${siteConfig.name} home`}
-              className="site-footer-signature-word footer-brand"
+              className="site-footer-signature-word footer-brand inline-flex items-center gap-3"
             >
+              <img
+                src={logoImg}
+                alt=""
+                width={48}
+                height={48}
+                aria-hidden="true"
+                className="size-10 sm:size-12 flex-none object-contain"
+              />
               <span>newline</span>
               <span className="site-footer-signature-arrow">↵</span>
             </Link>
