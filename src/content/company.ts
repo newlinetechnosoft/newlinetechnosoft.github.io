@@ -2,24 +2,25 @@ export const company = {
   name: "NewLine Technosoft",
   shortName: "NewLine",
   domain: "https://newlinetechnosoft.com",
-  tagline: "[FILL]", // suggested direction: short, plain, no buzzwords e.g. "Software engineering for ambitious teams."
-  whatWeDo: "[FILL: e.g. web apps, mobile apps, custom software, ...]",
-  founded: "[FILL]",
+  tagline: "Where innovation meets clean engineering.", // suggested direction: short, plain, no buzzwords e.g. "Software engineering for ambitious teams."
+  whatWeDo:
+    "Custom Software Development | Cloud Solutions | Web & Mobile Apps | Social Media Handling | IT Consulting",
+  founded: "",
   location: "Butwal, Lumbini Province, Nepal",
-  address: "[FILL]",
+  address: "Butwal-10, Devinagar",
   email: {
-    general: "[FILL]",
-    careers: "[FILL]",
-    hello: "[FILL]",
+    general: "newlinetechnology@gmail.com",
+    careers: "newlinetechnology@gmail.com",
+    hello: "newlinetechnology@gmail.com",
   },
-  phone: "[FILL]", // (+977 format)
-  officeDays: "Sunday to Friday, [FILL hours] NPT (UTC+5:45)",
-  officeHours: "[FILL hours] NPT (UTC+5:45)",
+  phone: "9867244404",
+  officeDays: "Sunday to Friday, 9am-6pm NPT (UTC+5:45)",
+  officeHours: "9am-6pm NPT (UTC+5:45)",
   socials: {
-    github: "[FILL: GitHub, LinkedIn, Facebook, etc. Only include the ones that exist]",
-    linkedin: "[FILL: GitHub, LinkedIn, Facebook, etc. Only include the ones that exist]",
-    facebook: "[FILL: GitHub, LinkedIn, Facebook, etc. Only include the ones that exist]",
+    github: "https://github.com/newlinetechnosoft",
+    linkedin: "",
+    facebook: "https://www.facebook.com/NewLinetechnosoft",
   },
-  registration: "[FILL: company reg. / PAN, shown in footer if provided]",
-  openRolesSummary: '[FILL: list, or leave empty to show the "no open roles" state]',
+  registration: "",
+  openRolesSummary: "",
 } as const;

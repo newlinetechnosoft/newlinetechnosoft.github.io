@@ -1,9 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { CareersPage } from "@/components/careers/careers-page";
-import { ogPages } from "@/lib/og-pages";
-import { pageMeta } from "@/lib/seo";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/careers")({
-  head: () => ({ meta: pageMeta(ogPages.careers) }),
-  component: CareersPage,
+  component: () => <Outlet />,
 });
