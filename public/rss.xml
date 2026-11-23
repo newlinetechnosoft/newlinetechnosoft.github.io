@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NewLine Technosoft — Engineering Blog</title>
+    <link>https://newlinetechnosoft.com/blog</link>
+    <description>Technical notes, architecture decisions, and engineering principles from NewLine Technosoft in Butwal, Nepal.</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 10 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://newlinetechnosoft.com/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Shipping React 19 with the React Compiler in Production</title>
+      <link>https://newlinetechnosoft.com/blog/react-compiler-in-production</link>
+      <guid>https://newlinetechnosoft.com/blog/react-compiler-in-production</guid>
+      <pubDate>Tue, 10 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Why eliminating manual useMemo and useCallback hooks improves codebase maintainability and eliminates cognitive overhead without sacrificing rendering speed.</description>
+    </item>
+
+    <item>
+      <title>Designing Resilient Offline-First Mobile Architectures</title>
+      <link>https://newlinetechnosoft.com/blog/designing-offline-first-mobile-apps</link>
+      <guid>https://newlinetechnosoft.com/blog/designing-offline-first-mobile-apps</guid>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 GMT</pubDate>
+      <description>How we structure local SQLite caching, queued mutations, and conflict resolution for field applications operating in low-bandwidth regions.</description>
+    </item>
+
+    <item>
+      <title>Practical Rules for PostgreSQL Indexing in High-Traffic Systems</title>
+      <link>https://newlinetechnosoft.com/blog/postgres-indexing-practical-rules</link>
+      <guid>https://newlinetechnosoft.com/blog/postgres-indexing-practical-rules</guid>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+      <description>B-tree index mechanics, composite key ordering, and how to avoid index bloat while maintaining sub-millisecond query execution.</description>
+    </item>
+  </channel>
+</rss>
