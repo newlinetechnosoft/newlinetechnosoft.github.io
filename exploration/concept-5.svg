@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>NewLine Technosoft - Concept 5: CRLF Stepped N</title>
+  <!-- Stem 1 on Line 1 -->
+  <path d="M10 10h8v32h-8V10z" fill="currentColor"/>
+  <!-- Stepped diagonal connecting Line 1 to Line 2 -->
+  <path d="M18 10h8l20 28v-16h8v32H46L18 20V10z" fill="currentColor"/>
+  <!-- Line 2 return hook -->
+  <path d="M46 54H25.314l3.343 3.343-5.657 5.657L12 52l11-11 5.657 5.657-3.343 3.343H46v-8h8v11a3 3 0 0 1-3 3z" fill="currentColor"/>
+</svg>

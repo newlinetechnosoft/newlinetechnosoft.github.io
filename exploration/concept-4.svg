@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>NewLine Technosoft - Concept 4: Stacked-Lines N</title>
+  <!-- Line 1: top half of N -->
+  <path d="M10 10h8v18h-8V10zm8 0h7.5L41.5 28H32L18 11V10zm28 0h8v18h-8V10z" fill="currentColor"/>
+  <!-- Line 2: bottom half of N indented right by 6px -->
+  <path d="M16 36h8v18h-8V36zm8 0h7.5L47.5 54H38L24 37V36zm28 0h8v18h-8V36z" fill="currentColor"/>
+</svg>

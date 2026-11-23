@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import newlineLogo from "@/assets/logos/newline.svg";
+import newlineLogo from "@/assets/logos/newline-mark.svg";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -152,9 +152,10 @@ export function Header() {
         >
           <img
             src={newlineLogo}
-            alt=""
-            aria-hidden="true"
-            className="size-5 transition-transform duration-[0.35s] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.12] group-hover:rotate-[-6deg]"
+            alt="NewLine Technosoft"
+            width={20}
+            height={20}
+            className="size-5 flex-none transition-transform duration-[0.35s] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.12] group-hover:rotate-[-6deg]"
           />
           <span>{siteConfig.shortName}</span>
         </Link>

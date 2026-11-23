@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>NewLine Technosoft - Concept 3: Caret-N</title>
+  <path d="M10 10h8v44h-8V10zM18 10h7.5L46 41.5V10h8v32H46.5L18 10.5V10z" fill="currentColor"/>
+  <rect x="44" y="44" width="12" height="10" rx="1.5" fill="currentColor"/>
+  <rect x="24" y="48" width="14" height="6" rx="1" fill="currentColor"/>
+</svg>

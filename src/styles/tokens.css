@@ -32,6 +32,7 @@
   --nav-gutter: 0.5rem;
   --nav-piece-height: 3rem;
   --nav-height: calc(var(--nav-piece-height) + 2 * var(--nav-gutter));
+  --signature-logo: url("@/assets/logos/newline-mark.svg");
 }
 
 .dark {

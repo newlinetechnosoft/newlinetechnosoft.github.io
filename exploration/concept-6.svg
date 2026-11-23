@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>NewLine Technosoft - Concept 6: Monospace Return Ligature</title>
+  <!-- Left stem -->
+  <rect x="10" y="10" width="8" height="44" rx="1" fill="currentColor"/>
+  <!-- Diagonal backslash stroke with optical weight balance -->
+  <path d="M18 10h8.8L46 41.5V10h8v34a8 8 0 0 1-8 8H26.8l3.6 3.6-5.6 5.6L14 50.4 24.8 39.6l5.6 5.6-3.6 3.6H46a2 2 0 0 0 2-2V24.5L25.2 10H18z" fill="currentColor"/>
+</svg>
