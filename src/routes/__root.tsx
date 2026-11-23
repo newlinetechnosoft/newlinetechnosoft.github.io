@@ -4,6 +4,8 @@ import appleTouchIcon from "@/assets/favicons/apple-touch-icon.png";
 import faviconIco from "@/assets/favicons/favicon.ico";
 import faviconSvg from "@/assets/favicons/favicon.svg";
 import appCss from "@/App.css?url";
+import bricolageWoff2 from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
+import geistWoff2 from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -18,10 +20,24 @@ export const Route = createRootRoute({
       ...pageMeta(ogPages.home),
     ],
     links: [
+      {
+        rel: "preload",
+        href: bricolageWoff2,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: geistWoff2,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: faviconIco, sizes: "32x32" },
       { rel: "icon", type: "image/svg+xml", href: faviconSvg },
       { rel: "apple-touch-icon", sizes: "180x180", href: appleTouchIcon },
-      { rel: "stylesheet", href: appCss },
     ],
     scripts: [
       {

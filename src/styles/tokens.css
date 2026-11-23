@@ -1,6 +1,4 @@
-@import "@fontsource-variable/bricolage-grotesque";
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/jetbrains-mono";
+@import "./fonts.css";
 
 @theme {
   --color-brand: oklch(0.75 0.16 160);

@@ -8,6 +8,7 @@
     "predev": "bash scripts/prebuild.sh",
     "prebuild": "bash scripts/prebuild.sh",
     "build": "vp build",
+    "postbuild": "bun scripts/compress.ts",
     "showcase:generate": "node scripts/generate-showcase.ts",
     "check": "vp check --fix",
     "preview": "vp preview",
