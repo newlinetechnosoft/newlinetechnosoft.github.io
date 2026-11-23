@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Clean stale build cache to prevent hash mismatches
+rm -rf node_modules/.nitro .nitro .output
+
 if ! command -v bun >/dev/null 2>&1; then
   if [ -x "$HOME/.bun/bin/bun" ]; then
     export PATH="$HOME/.bun/bin:$PATH"
