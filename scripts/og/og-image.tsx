@@ -25,7 +25,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
           top: 20,
           width: 800,
           height: 800,
-          background: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 64%)",
+          background: "radial-gradient(circle, rgba(26, 206, 139, 0.22) 0%, transparent 64%)",
         }}
       />
       <div
@@ -85,7 +85,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
               fontSize: 14,
               fontWeight: 500,
               letterSpacing: "0.04em",
-              color: "rgba(165, 180, 252, 0.8)",
+              color: "rgba(87, 233, 146, 0.85)",
               textTransform: "uppercase",
               paddingLeft: 8,
               borderLeft: "1px solid rgba(255, 255, 255, 0.15)",
@@ -110,7 +110,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
                 style={{
                   width: 3,
                   height: 18,
-                  background: "#6366f1",
+                  background: "#1ace8b",
                   borderRadius: 2,
                   flexShrink: 0,
                 }}
@@ -120,7 +120,7 @@ export function OgImage({ eyebrow, title, description }: OgImageProps) {
                   fontSize: 16,
                   fontWeight: 600,
                   letterSpacing: "0.06em",
-                  color: "rgba(199, 210, 254, 0.9)",
+                  color: "rgba(87, 233, 146, 0.95)",
                   textTransform: "uppercase",
                 }}
               >

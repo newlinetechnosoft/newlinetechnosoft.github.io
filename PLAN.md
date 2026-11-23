@@ -37,7 +37,7 @@
   - Motif: The newline character (`\n`) and return key mark (`↵`).
   - Logo: Clean custom SVG mark (`↵`) + refined geometric wordmark (`src/assets/logos/newline.svg`).
   - Favicons: `favicon.svg`, `favicon.ico`, `apple-touch-icon.png` in the new NewLine brand.
-  - Palette: Replace mango yellow and leaf green with a precise OKLCH Indigo accent (`oklch(0.62 0.19 275)` light / `oklch(0.74 0.16 275)` dark) against warm/cool-neutral slate surfaces with guaranteed WCAG 2.2 AA contrast.
+  - Palette: Green/Teal NewLine Technosoft brand palette (Green `oklch(0.75 0.16 160)` light / `oklch(0.80 0.17 158)` dark, Teal `oklch(0.47 0.08 190)`, Ink `oklch(0.28 0.05 209)`) against fresh, high-contrast surfaces with guaranteed WCAG 2.2 AA contrast.
   - Self-Hosted Typography: Integrated `@fontsource-variable/bricolage-grotesque`, `@fontsource-variable/geist`, and `@fontsource-variable/jetbrains-mono` directly into CSS, eliminating runtime external Google Fonts requests.
   - Hero Visual: Replace the window manager layout demo with a lightweight (<6KB), responsive, CSS/SVG/React animation inspired by a code terminal where a command/code snippet is keyed in, `↵` is struck, and a clean digital product/screen outcome resolves.
   - Footer Signature Wordmark: Adapted to `newline ↵` with the smooth ambient background shimmer effect.
