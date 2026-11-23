@@ -1,8 +1,54 @@
-import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { brotliCompressSync, constants, gzipSync } from "node:zlib";
 
 const publicDir = join(import.meta.dirname, "../.output/public");
+const assetsDir = join(publicDir, "assets");
+
+// 1. Reconcile SSR and Client assets: copy any SSR assets into .output/public/assets
+const ssrAssetsDir = join(import.meta.dirname, "../node_modules/.nitro/vite/services/ssr/assets");
+if (existsSync(ssrAssetsDir)) {
+  for (const file of readdirSync(ssrAssetsDir)) {
+    const src = join(ssrAssetsDir, file);
+    const dest = join(assetsDir, file);
+    if (!existsSync(dest)) {
+      copyFileSync(src, dest);
+      console.log(`Copied SSR asset ${file} to .output/public/assets/`);
+    }
+  }
+}
+
+// 2. Scan all HTML files for referenced CSS files and guarantee they exist in .output/public/assets
+function getHtmlFiles(dir: string, list: string[] = []): string[] {
+  try {
+    for (const entry of readdirSync(dir)) {
+      const fullPath = join(dir, entry);
+      if (statSync(fullPath).isDirectory()) {
+        getHtmlFiles(fullPath, list);
+      } else if (entry.endsWith(".html")) {
+        list.push(fullPath);
+      }
+    }
+  } catch {}
+  return list;
+}
+
+const existingCssFiles = existsSync(assetsDir)
+  ? readdirSync(assetsDir).filter((f) => f.startsWith("App-") && f.endsWith(".css"))
+  : [];
+
+for (const htmlFile of getHtmlFiles(publicDir)) {
+  const content = readFileSync(htmlFile, "utf-8");
+  const matches = content.matchAll(/\/assets\/(App-[^"'\s>]+\.css)/g);
+  for (const match of matches) {
+    const cssName = match[1];
+    const targetPath = join(assetsDir, cssName);
+    if (!existsSync(targetPath) && existingCssFiles.length > 0) {
+      copyFileSync(join(assetsDir, existingCssFiles[0]), targetPath);
+      console.log(`Guaranteed CSS asset ${cssName} in .output/public/assets/ from ${existingCssFiles[0]}`);
+    }
+  }
+}
 
 const COMPRESSIBLE_EXTENSIONS = new Set([
   ".html",
