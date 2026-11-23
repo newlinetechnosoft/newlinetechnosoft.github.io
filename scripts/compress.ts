@@ -42,10 +42,13 @@ for (const htmlFile of getHtmlFiles(publicDir)) {
   const matches = content.matchAll(/\/assets\/(App-[^"'\s>]+\.css)/g);
   for (const match of matches) {
     const cssName = match[1];
-    const targetPath = join(assetsDir, cssName);
-    if (!existsSync(targetPath) && existingCssFiles.length > 0) {
-      copyFileSync(join(assetsDir, existingCssFiles[0]), targetPath);
-      console.log(`Guaranteed CSS asset ${cssName} in .output/public/assets/ from ${existingCssFiles[0]}`);
+    const firstExisting = existingCssFiles[0];
+    if (cssName && firstExisting) {
+      const targetPath = join(assetsDir, cssName);
+      if (!existsSync(targetPath)) {
+        copyFileSync(join(assetsDir, firstExisting), targetPath);
+        console.log(`Guaranteed CSS asset ${cssName} in .output/public/assets/ from ${firstExisting}`);
+      }
     }
   }
 }

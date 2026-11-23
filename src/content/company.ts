@@ -1,7 +1,12 @@
+const siteUrl =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL) ||
+  (typeof process !== "undefined" && process.env?.VITE_SITE_URL) ||
+  "https://newlinetech.vercel.app";
+
 export const company = {
   name: "NewLine Technosoft",
   shortName: "NewLine",
-  domain: "https://newlinetechnosoft.com",
+  domain: siteUrl,
   tagline: "Where innovation meets clean engineering.", // suggested direction: short, plain, no buzzwords e.g. "Software engineering for ambitious teams."
   whatWeDo:
     "Custom Software Development | Cloud Solutions | Web & Mobile Apps | Social Media Handling | IT Consulting",

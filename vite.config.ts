@@ -40,7 +40,7 @@ export default defineConfig({
       },
       sitemap: {
         enabled: true,
-        host: "https://newlinetechnosoft.com",
+        host: process.env.VITE_SITE_URL || "https://newlinetech.vercel.app",
       },
     }),
     react(),

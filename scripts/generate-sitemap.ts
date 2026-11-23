@@ -4,7 +4,7 @@ import { projects } from "../src/content/projects.ts";
 import { jobs } from "../src/content/jobs.ts";
 import { posts } from "../src/content/posts.ts";
 
-const baseUrl = "https://newlinetechnosoft.com";
+const baseUrl = process.env.VITE_SITE_URL || "https://newlinetech.vercel.app";
 const today = new Date().toISOString().split("T")[0];
 
 const staticPaths = [
